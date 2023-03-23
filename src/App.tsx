@@ -1,4 +1,4 @@
-import { GitHubBanner, Refine } from "@refinedev/core";
+import {  Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 
 import {
@@ -16,6 +16,7 @@ import dataProvider from "@refinedev/simple-rest";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import { ColorModeContextProvider } from "./contexts/color-mode";
 import { PostList, PostShow, PostCreate, PostEdit } from "pages";
+import { ProductList, ProductShow, ProductCreate, ProductEdit } from "pages";
 import { AntdInferencer } from "@refinedev/inferencer/antd";
 function App() {
   return (
@@ -37,7 +38,20 @@ function App() {
                 show: PostShow,
                 create: PostCreate,
                 edit: PostEdit,
+                meta:{
+                  canDelete:true
+                }
               },
+              {
+                name: "products",
+                list: ProductList,
+                show: ProductShow,
+                create: ProductCreate,
+                edit: ProductEdit,
+                meta:{
+                  canDelete:true
+                }
+              }
             ]}
           >
             <Routes>
@@ -49,6 +63,12 @@ function App() {
                 }
               >
                 <Route path="posts">
+                  <Route index element={<AntdInferencer />} />
+                  <Route path="show/:id" element={<AntdInferencer />} />
+                  <Route path="edit/:id" element={<AntdInferencer />} />
+                  <Route path="create" element={<AntdInferencer />} />
+                </Route>
+                <Route path="products">
                   <Route index element={<AntdInferencer />} />
                   <Route path="show/:id" element={<AntdInferencer />} />
                   <Route path="edit/:id" element={<AntdInferencer />} />
